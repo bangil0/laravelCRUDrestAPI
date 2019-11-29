@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('user', 'UserController@index'); //!mengambil semua user
-Route::get('/user/{id}', 'UserController@show'); //!mengambil 1 user berdasarkan id
+Route::get('/user/{id}', 'UserController@showById'); //!mengambil 1 user berdasarkan id
 Route::post('user', 'UserController@create');
 Route::post('/user/{id}', 'UserController@update');
 Route::delete('/user/{id}', 'UserController@delete');

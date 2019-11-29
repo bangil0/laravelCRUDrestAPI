@@ -10,19 +10,23 @@ class UserController extends Controller
     //! Menampilkan semua user
     public function index()
     {
-        $user =  User::all();
+        $userList = User::paginate(5);
+        return  response()->json($userList, 200);
 
-        if (count($user) > 0) { //!mengecek apakah user kosong atau tidak
-            $res['message'] = "Success!";
-            $res['values'] = $user;
-            return response($res);
-        } else {
-            $res['message'] = "Empty!";
-            return response($res);
-        }
+        // $user =  User::all();
+
+
+        // if (count($user) > 0) { //!mengecek apakah user kosong atau tidak
+        //     $res['message'] = "Success!";
+        //     $res['values'] = $user;
+        //     return response($res);
+        // } else {
+        //     $res['message'] = "Empty!";
+        //     return response($res);
+        // }
     }
     //! menampilkan 1 user berdasarkan id
-    public function show($id)
+    public function showById($id)
     {
         $data = User::where('id', $id)->get();
 
@@ -31,10 +35,12 @@ class UserController extends Controller
             $res['user'] = $data;
             return response($res);
         } else {
-            $res['message'] = "Failed!";
+            $res['message'] = "Data Not Found!";
             return response($res);
         }
     }
+
+
 
     //! membuat user baru
     public function create(request $request)
