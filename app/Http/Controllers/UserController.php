@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Model\User;
+use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
@@ -12,18 +13,6 @@ class UserController extends Controller
     {
         $userList = User::paginate(5);
         return  response()->json($userList, 200);
-
-        // $user =  User::all();
-
-
-        // if (count($user) > 0) { //!mengecek apakah user kosong atau tidak
-        //     $res['message'] = "Success!";
-        //     $res['values'] = $user;
-        //     return response($res);
-        // } else {
-        //     $res['message'] = "Empty!";
-        //     return response($res);
-        // }
     }
     //! menampilkan 1 user berdasarkan id
     public function showById($id)
@@ -40,7 +29,15 @@ class UserController extends Controller
         }
     }
 
+    //! search advance
+    public function cari($nik)
+    {
+        $data = User::select("id", "nama", "kelurahan", "nik", "no_kk", "alamat", "kecamatan", "latitude", "longitude")
+            ->where("nik", "LIKE", "$nik%")
+            ->paginate();
 
+        return response()->json($data);
+    }
 
     //! membuat user baru
     public function create(request $request)
