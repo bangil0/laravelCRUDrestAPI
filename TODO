@@ -1,0 +1,5 @@
+CLI membuat CRUD data baru
+Todo:
+☐ php artisan make:model Siswa -c -m
+☐ php artisan migrate
+☐ php artisan serve --host 0.0.0.0
